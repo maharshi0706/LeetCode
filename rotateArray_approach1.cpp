@@ -15,7 +15,7 @@ class Solution {
         void rotate(vector<int>& nums, int k) {
             while((k--) > 0){
                 int temp = nums[nums.size()-1];
-                for(int i = nums.size();i > 0;i--){
+                for(int i = nums.size()-1;i > 0;i--){
                     nums[i] = nums[i-1];
                     if ((i-1) == 0) {
                         nums[i-1] = temp;
