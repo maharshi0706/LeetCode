@@ -8,6 +8,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+#include <stack>
+#include <vector>
 #include <iostream>
 using namespace std;
 
@@ -24,17 +26,26 @@ public:
 
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
+    bool isPalindrome(ListNode* head) {
+        if(head == NULL || head->next == NULL) return true;
+
+        stack<int> nodeData;
         ListNode* temp = head;
-        ListNode* prev = NULL;
         while(temp != NULL){
-            ListNode* front = temp->next;
-            temp->next = prev;
-            prev = temp;
-            temp = front;
+            nodeData.push(temp->data);
+            temp = temp->next;
         }
-        return prev;
+        temp = head;
+        while(temp != NULL) {
+            if(temp->data != nodeData.top()) return false;
+            
+            nodeData.pop();
+            temp = temp->next;
+        }
+        return true;
+        
     }
+
 };
 
 
@@ -48,15 +59,15 @@ void print(ListNode* head){
 }
 int main(){
     Solution sol;
-    ListNode* head = new ListNode(1, nullptr);
+    vector<int> arr = {1,2,2,3,1};
+    ListNode* head = new ListNode(arr[0], nullptr);
     ListNode* temp = head;
-    for(int i = 0;i < 5;i++){
-        ListNode* newNode = new ListNode(i+2, nullptr);
+    for(int i = 1;i < arr.size();i++){
+        ListNode* newNode = new ListNode(arr[i], nullptr);
         temp->next = newNode;
         temp = newNode;
     }
     print(head);
-    head = sol.reverseList(head);
-    print(head);
+    cout<<sol.isPalindrome(head);
     return 0;
 }
