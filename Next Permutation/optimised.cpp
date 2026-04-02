@@ -35,7 +35,7 @@ public:
 
 int main(){
     Solution sol;
-    vector<int> nums = {2,3,1};
+    vector<int> nums = {1,3,2};
     // vector<int> nums = {1,2,3};
     sol.nextPermutation(nums);
     return 0;
