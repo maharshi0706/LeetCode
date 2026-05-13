@@ -15,6 +15,10 @@ public:
     }
 
     int solve(int target, vector<int>& nums){
+        /*
+            Find first index >= given target.
+            Logic implemented in Search inserted position questions. 
+        */
         // define default answer if no element found >= target -> length of nums
         int ans = nums.size();
         ans =  findLowerBound(0, nums.size() - 1, target, ans, nums);
