@@ -8,7 +8,12 @@ public:
         if(low > high) return ans;
 
         int mid = low + ((high - low) / 2);
-        // if(nums[mid] < ans) ans = nums[mid];
+
+        // Optimization -> If half is sorted, then low will always be smallest element -> compare with ans
+        if(nums[low] <= nums[high]){
+            if(nums[low] < ans) ans = nums[low];
+            return ans;
+        }
 
         // Find sorted half
         if(nums[low] <= nums[mid]){
@@ -29,7 +34,7 @@ public:
 
 int main(){
     Solution sol;
-    vector<int> nums = {11,13,15,17};
+    vector<int> nums = {4,5,6,0,1,2};
     int res = sol.findMinimum(nums);
     cout<<res<<endl;
     return 0;
