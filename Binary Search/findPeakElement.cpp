@@ -5,6 +5,8 @@ using namespace std;
 class Solution{
 public:
     int binarySearch(int low, int high, vector<int>& nums){
+        // Required base case -> will NEVER be executed
+        if(low > high) return -1; 
 
         int mid = low + ((high - low) / 2);
         if(nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1]) return mid;
