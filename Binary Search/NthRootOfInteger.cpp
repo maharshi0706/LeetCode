@@ -3,6 +3,9 @@ using namespace std;
 
 class Solution{
 public:
+    // Returns 1 if ans == mid
+    //  Returns 2 if ans < mid -> potential answer to right of mid - eliminate left
+    // Returns 0 if ans > mid -> potential answer to left of mid - eliminate right
     int findRoot(int mid, int n, int m){
         long long ans = 1;
         for(int i = 0;i < n;i++) {
