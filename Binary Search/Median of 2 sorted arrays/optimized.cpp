@@ -5,51 +5,37 @@ using namespace std;
 class Solution{
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2){
-        int pointer = 0;
-        int i = 0, j = 0;
+        int n = nums1.size();
+        int m = nums2.size();
+        if(n > m) return findMedianSortedArrays(nums2, nums1);
 
-        int m = nums1.size(), n = nums2.size();
-        int k = m + n;
+        int low = 0, high = n;
+        int numOfLeftElements = (n + m + 1) / 2;
 
-        int idx2 = k / 2;
-        int idx1 = idx2 - 1;
+        while(low <= high){
 
-        int idx1Element = -1, idx2Element = -1;
-        while(i != m && j != n) {
-            if(nums1[i] < nums2[j]){
-                if (pointer == idx1) idx1Element = nums1[i];
-                if (pointer == idx2) idx2Element = nums1[i];
-                pointer++;
-                i++;
-            }
-            else{
-                if (pointer == idx1) idx1Element = nums2[j];
-                if (pointer == idx2) idx2Element = nums2[j];
-                pointer++;
-                j++;
-                
-            }
+            int mid1 = low + (high - low) / 2;
+            int mid2 = numOfLeftElements - mid1;
             
-        }
-        while(i < m) {
-            if (pointer == idx1) idx1Element = nums1[i];
-            if (pointer == idx2) idx2Element = nums1[i];
-            pointer++;
-            i++;
-            
-        }
-        
-        while(j < n) {
-            if (pointer == idx1) idx1Element = nums2[j];
-            if (pointer == idx2) idx2Element = nums2[j];
-            pointer++;
-            j++;
-        }
+            int r1 = (mid1 < n) ? nums1[mid1] : INT_MAX; 
+            int r2 = (mid2 < m) ? nums2[mid2] : INT_MAX;
 
-        if (k % 2 == 0){
-            return (double) ((double)(idx1Element + idx2Element)) / 2.0;
+            int l1 = (mid1 - 1 >= 0) ? nums1[mid1 - 1] : INT_MIN;
+            int l2 = (mid2 - 1 >= 0) ? nums2[mid2 - 1] : INT_MIN;
+
+            if(l1 <= r2 && l2 <= r1){
+                if ((n + m) % 2 == 0) {
+                    return ((double)max(l1, l2) + (double)min(r1, r2)) / 2.0;
+                }
+                return (double)max(l1, l2);
+            }
+
+            else if(l2 > r1) {
+                low = mid1 + 1;
+            }
+            else high = mid1 - 1;
         }
-        else return idx2Element;
+        return 0;
     }
 };
 
